@@ -76,6 +76,8 @@ test('un pedido hecho sin señal sobrevive a cerrar la app y se sube al volver l
   await page.getByRole('button', { name: 'Guardar pedido' }).click();
   await expect(page.locator('#nube')).not.toContainText('Guardado');
   expect((await totales(page)).pedidos).toBe(antes + 1);
+  // El pedido ya quedó guardado en el celular (no solo en pantalla)
+  await page.waitForFunction((n) => Object.keys(window.__app.DB.exportar().pedidos).length === n, antes + 1);
 
   // Cerrar y volver a abrir sin señal: el pedido sigue en el celular
   await page.reload();
@@ -203,7 +205,7 @@ test('traer otra vez un respaldo viejo no deshace lo que se anotó después', as
   expect(await page.evaluate(() => !!window.__app.S.pedidos.p07)).toBe(false);
 
   // Sin señal no deja traer un respaldo (no puede saber qué existe)
-  await cortarNube(ctx);
+  await ctx.setOffline(true);
   const sin = await page.evaluate((d) => window.__app.DB.importar(d).then(() => 'importó', (e) => e.code), VIEJOS);
   expect(sin).toBe('sin-senal');
 });

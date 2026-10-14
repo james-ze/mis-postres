@@ -31,6 +31,7 @@ let auth, db, usuario = null;
 let pendientes = 0, ultimoError = null, sinCacheLocal = false;
 const datos = {}, papelera = {}, listos = new Set(), desdeServidor = new Set();
 let pendientesNube = {};   // colección -> tiene cambios guardados en el celular que aún no suben
+let sinCopiaLocal = {};    // colección -> cambios recién hechos que aún no quedan guardados ni en el celular
 let confiableAvisado = false;
 let desuscribir = [];
 let cb = {};
@@ -83,8 +84,9 @@ export function iniciar(callbacks) {
     window.addEventListener('online', avisarEstado);
     window.addEventListener('offline', avisarEstado);
     window.addEventListener('beforeunload', (e) => {
-      // Solo avisa si hay cambios sin subir que tampoco quedaron guardados en el celular.
-      if (hayPendientes() && sinCacheLocal) { e.preventDefault(); e.returnValue = ''; }
+      // Solo avisa si hay cambios que todavía no quedaron guardados ni en el celular.
+      const recien = Object.keys(sinCopiaLocal).some((c) => sinCopiaLocal[c] > 0);
+      if (recien || (hayPendientes() && sinCacheLocal)) { e.preventDefault(); e.returnValue = ''; }
     });
   }
   onAuthStateChanged(auth, (u) => {
@@ -114,6 +116,7 @@ function escuchar() {
     datos[col] = {}; papelera[col] = {};
     const f = onSnapshot(collection(db, 'negocios', NEGOCIO, col), { includeMetadataChanges: true }, (snap) => {
       pendientesNube[col] = snap.metadata.hasPendingWrites;
+      if (snap.metadata.hasPendingWrites) sinCopiaLocal[col] = 0; // ya quedó guardado en el celular
       if (!snap.metadata.fromCache) desdeServidor.add(col);
       const primera = !listos.has(col);
       const cambiaron = primera || snap.docChanges().length > 0;
@@ -152,13 +155,16 @@ function huella() {
 function copia(x) { return x == null ? null : JSON.parse(JSON.stringify(x)); }
 function actual(col, id) { return copia((datos[col] && datos[col][id]) || null); }
 
-function enviar(batch, que) {
-  pendientes++; avisarEstado();
+function enviar(batch, que, cols) {
+  pendientes++;
+  (cols || []).forEach((c) => { sinCopiaLocal[c] = (sinCopiaLocal[c] || 0) + 1; });
+  avisarEstado();
+  const listo = () => { pendientes--; (cols || []).forEach((c) => { sinCopiaLocal[c] = 0; }); };
   return batch.commit().then(() => {
-    pendientes--; ultimoError = null; avisarEstado();
+    listo(); ultimoError = null; avisarEstado();
     return true;
   }, (err) => {
-    pendientes--;
+    listo();
     ultimoError = (err.code === 'permission-denied')
       ? 'Esta cuenta no tiene permiso para guardar.'
       : 'No se pudo guardar ' + que + ': ' + err.message;
@@ -191,7 +197,7 @@ export function guardar(col, id, cuerpo) {
     b.set(ref(col, id), { ...limpio, _borrado: false, ...huella() }, { merge: true });
     anotar(b, col, id, 'crear', null, limpio);
   }
-  return enviar(b, 'el cambio');
+  return enviar(b, 'el cambio', [col]);
 }
 
 // Cambia solo algunos campos (por ejemplo "entregado"), sin tocar el resto.
@@ -200,7 +206,7 @@ export function actualizar(col, id, campos) {
   const b = writeBatch(db);
   b.set(ref(col, id), { ...copia(campos), ...huella() }, { merge: true });
   anotar(b, col, id, 'editar', antes, antes ? { ...antes, ...copia(campos) } : copia(campos));
-  return enviar(b, 'el cambio');
+  return enviar(b, 'el cambio', [col]);
 }
 
 // Guarda la edición de un pedido: los campos del formulario y, aparte, los pagos que
@@ -212,7 +218,7 @@ export function editarPedido(id, campos, agregados, quitados) {
   if (quitados.length) b.update(ref('pedidos', id), { pagos: arrayRemove(...copia(quitados)), ...huella() });
   if (agregados.length) b.update(ref('pedidos', id), { pagos: arrayUnion(...copia(agregados)), ...huella() });
   anotar(b, 'pedidos', id, 'editar', antes, { campos: copia(campos), pagosAgregados: copia(agregados), pagosQuitados: copia(quitados) });
-  return enviar(b, 'el pedido');
+  return enviar(b, 'el pedido', ['pedidos']);
 }
 
 export function borrar(col, id) {
@@ -220,14 +226,14 @@ export function borrar(col, id) {
   const b = writeBatch(db);
   b.set(ref(col, id), { _borrado: true, ...huella() }, { merge: true });
   anotar(b, col, id, 'eliminar', antes, null);
-  return enviar(b, 'la eliminación');
+  return enviar(b, 'la eliminación', [col]);
 }
 
 export function restaurar(col, id) {
   const b = writeBatch(db);
   b.set(ref(col, id), { _borrado: false, ...huella() }, { merge: true });
   anotar(b, col, id, 'restaurar', null, limpiar((papelera[col] && papelera[col][id]) || {}));
-  return enviar(b, 'la restauración');
+  return enviar(b, 'la restauración', [col]);
 }
 
 // Pagos y mermas: se agregan y quitan uno por uno, así dos celulares anotando en el
@@ -236,19 +242,19 @@ export function agregarPago(pid, pago) {
   const b = writeBatch(db);
   b.update(ref('pedidos', pid), { pagos: arrayUnion(copia(pago)), ...huella() });
   anotar(b, 'pedidos', pid, 'pago', null, pago);
-  return enviar(b, 'el pago');
+  return enviar(b, 'el pago', ['pedidos']);
 }
 export function quitarPago(pid, pago) {
   const b = writeBatch(db);
   b.update(ref('pedidos', pid), { pagos: arrayRemove(copia(pago)), ...huella() });
   anotar(b, 'pedidos', pid, 'quitar pago', pago, null);
-  return enviar(b, 'el cambio del pago');
+  return enviar(b, 'el cambio del pago', ['pedidos']);
 }
 export function agregarMerma(rid, merma) {
   const b = writeBatch(db);
   b.update(ref('rondas', rid), { merma: arrayUnion(copia(merma)), ...huella() });
   anotar(b, 'rondas', rid, 'merma', null, merma);
-  return enviar(b, 'la merma');
+  return enviar(b, 'la merma', ['rondas']);
 }
 
 // Trae un respaldo (de la app vieja o de esta). Solo AGREGA lo que no existe todavía:
@@ -295,7 +301,7 @@ export async function importar(obj) {
       b.set(ref(col, id), { ...v, _borrado: false, ...huella() });
       anotar(b, col, id, 'importar', null, v);
     });
-    envios.push(enviar(b, 'el respaldo').then((ok) => { if (ok) r.nuevos += parte.length; else r.fallidos += parte.length; }));
+    envios.push(enviar(b, 'el respaldo', [...new Set(parte.map((o) => o[0]))]).then((ok) => { if (ok) r.nuevos += parte.length; else r.fallidos += parte.length; }));
   }
   await Promise.all(envios);
   return r;
