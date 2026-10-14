@@ -1,0 +1,62 @@
+# Copia de seguridad diaria: guarda todos los datos del negocio, cifrados con una
+# clave, en la rama "respaldos" de este repositorio. Es opcional: solo corre si
+# existen los secretos FIREBASE_CUENTA_SERVICIO y RESPALDO_CLAVE (ver README).
+# Va cifrado porque el repositorio es público: sin la clave nadie puede leerlo.
+name: Respaldo diario
+
+on:
+  schedule:
+    - cron: '0 8 * * *'   # 3:00 a. m. hora de Colombia
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  respaldo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ¿Está configurado?
+        id: hay
+        env:
+          CUENTA: '${{ secrets.FIREBASE_CUENTA_SERVICIO }}'
+          CLAVE: '${{ secrets.RESPALDO_CLAVE }}'
+        run: echo "si=$([ -n "$CUENTA" ] && [ -n "$CLAVE" ] && echo 1 || echo 0)" >> "$GITHUB_OUTPUT"
+      - if: steps.hay.outputs.si == '1'
+        uses: actions/checkout@v4
+      - if: steps.hay.outputs.si == '1'
+        uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - if: steps.hay.outputs.si == '1'
+        run: npm ci
+      - if: steps.hay.outputs.si == '1'
+        env: { FIREBASE_CUENTA_SERVICIO: '${{ secrets.FIREBASE_CUENTA_SERVICIO }}' }
+        run: npm run respaldo -- respaldo.json
+      - if: steps.hay.outputs.si == '1'
+        env: { CLAVE: '${{ secrets.RESPALDO_CLAVE }}' }
+        run: |
+          # Comprimido y cifrado: el repositorio es público, sin la clave nadie lo puede leer.
+          gzip -9 -c respaldo.json | openssl enc -aes-256-cbc -pbkdf2 -iter 200000 -salt -pass env:CLAVE -out nuevo.json.gz.enc
+          rm respaldo.json
+          HOY=$(date -u +%F)
+          mkdir -p /tmp/rama && cd /tmp/rama
+          git init -q -b respaldos
+          git config user.name "respaldo-automatico"
+          git config user.email "respaldo@users.noreply.github.com"
+          # Trae solo la última versión de la rama (no toda su historia). Si no se puede
+          # consultar, se detiene: así nunca se rehace la rama sin los respaldos anteriores.
+          if git -C "$GITHUB_WORKSPACE" ls-remote --exit-code --heads origin respaldos >/dev/null; then
+            git -C "$GITHUB_WORKSPACE" fetch --depth=1 origin respaldos
+            git -C "$GITHUB_WORKSPACE" archive FETCH_HEAD | tar -x -C /tmp/rama
+          else
+            codigo=$?
+            if [ "$codigo" -ne 2 ]; then echo "No se pudo consultar la rama respaldos"; exit 1; fi
+          fi
+          mkdir -p diarios
+          cp "$GITHUB_WORKSPACE/nuevo.json.gz.enc" "diarios/$HOY.json.gz.enc"
+          cp "$GITHUB_WORKSPACE/nuevo.json.gz.enc" ultimo.json.gz.enc
+          # Se guardan los últimos 30 días; la rama se rehace cada vez para que no crezca sin fin.
+          ls -1 diarios/*.json.gz.enc | sort | head -n -30 | xargs -r rm -f
+          git add -A
+          git commit -q -m "Respaldo $HOY"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" respaldos

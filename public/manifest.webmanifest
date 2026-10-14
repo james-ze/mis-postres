@@ -1,0 +1,15 @@
+{
+  "name": "Mis Postres",
+  "short_name": "Mis Postres",
+  "start_url": "./",
+  "scope": "./",
+  "display": "browser",
+  "background_color": "#FFF6F8",
+  "theme_color": "#E0558A",
+  "lang": "es-CO",
+  "icons": [
+    { "src": "icono-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icono-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icono.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

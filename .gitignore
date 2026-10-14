@@ -1,0 +1,8 @@
+.prueba/
+node_modules/
+dist/
+test-results/
+playwright-report/
+firebase.prueba.json
+*.log
+migracion/

@@ -1,0 +1,743 @@
+{
+ "config": {
+  "nombre": "Mis Postres"
+ },
+ "catalogo": {
+  "s1": {
+   "nombre": "Cheesecake de frutos rojos",
+   "precio": 10000,
+   "rinde": 10,
+   "emo": "🍓",
+   "costoManual": 2000,
+   "ingredientes": [
+    {
+     "n": "galletas semidulces",
+     "c": 4550
+    },
+    {
+     "n": "mantequilla",
+     "c": 3400
+    },
+    {
+     "n": "mix de berries rojos",
+     "c": 8200
+    },
+    {
+     "n": "leche condensada y vainilla",
+     "c": 5000
+    }
+   ]
+  },
+  "s2": {
+   "nombre": "Postre de limón",
+   "precio": 10000,
+   "rinde": 10,
+   "emo": "🍮",
+   "costoManual": 1800,
+   "ingredientes": []
+  },
+  "s3": {
+   "nombre": "Pavé de Milo",
+   "precio": 10000,
+   "rinde": 10,
+   "emo": "🍫",
+   "costoManual": 3500,
+   "ingredientes": []
+  },
+  "s4": {
+   "nombre": "Cheesecake Oreo",
+   "precio": 10000,
+   "rinde": 10,
+   "emo": "🍪",
+   "costoManual": 1000,
+   "ingredientes": []
+  }
+ },
+ "rondas": {
+  "r1": {
+   "fecha": "2026-09-12",
+   "nombre": "Primera tanda",
+   "items": [
+    {
+     "s": "s1",
+     "q": 10
+    },
+    {
+     "s": "s2",
+     "q": 10
+    },
+    {
+     "s": "s3",
+     "q": 10
+    }
+   ],
+   "merma": []
+  },
+  "r2": {
+   "fecha": "2026-09-15",
+   "nombre": "Tanda de oreo",
+   "items": [
+    {
+     "s": "s4",
+     "q": 10
+    }
+   ],
+   "merma": []
+  }
+ },
+ "gastos": {
+  "g01": {
+   "fecha": "2026-09-11",
+   "cat": "Ingredientes",
+   "desc": "Galletas semidulces (4 tacos)",
+   "valor": 18200,
+   "saborId": ""
+  },
+  "g02": {
+   "fecha": "2026-09-11",
+   "cat": "Ingredientes",
+   "desc": "Mantequilla",
+   "valor": 6800,
+   "saborId": ""
+  },
+  "g03": {
+   "fecha": "2026-09-11",
+   "cat": "Ingredientes",
+   "desc": "Mix de berries rojos",
+   "valor": 8200,
+   "saborId": "s1"
+  },
+  "g04": {
+   "fecha": "2026-09-11",
+   "cat": "Empaques",
+   "desc": "Empaques talla M",
+   "valor": 30000,
+   "saborId": ""
+  },
+  "g05": {
+   "fecha": "2026-09-11",
+   "cat": "Ingredientes",
+   "desc": "Fécula de maíz 500g",
+   "valor": 4900,
+   "saborId": ""
+  },
+  "g06": {
+   "fecha": "2026-09-11",
+   "cat": "Ingredientes",
+   "desc": "Leche condensada y esencia de vainilla",
+   "valor": 17900,
+   "saborId": ""
+  },
+  "g07": {
+   "fecha": "2026-09-11",
+   "cat": "Ingredientes",
+   "desc": "Paca de leche",
+   "valor": 17000,
+   "saborId": ""
+  },
+  "g08": {
+   "fecha": "2026-09-11",
+   "cat": "Ingredientes",
+   "desc": "Galletas Oreo",
+   "valor": 15300,
+   "saborId": "s4"
+  },
+  "g09": {
+   "fecha": "2026-09-11",
+   "cat": "Ingredientes",
+   "desc": "Limones",
+   "valor": 6000,
+   "saborId": "s2"
+  },
+  "g10": {
+   "fecha": "2026-09-11",
+   "cat": "Ingredientes",
+   "desc": "Crema de leche x2",
+   "valor": 42000,
+   "saborId": ""
+  },
+  "g11": {
+   "fecha": "2026-09-11",
+   "cat": "Ingredientes",
+   "desc": "Milo",
+   "valor": 15000,
+   "saborId": "s3"
+  },
+  "g12": {
+   "fecha": "2026-09-11",
+   "cat": "Ingredientes",
+   "desc": "Leche en polvo",
+   "valor": 10000,
+   "saborId": ""
+  }
+ },
+ "clientes": {
+  "c1": {
+   "nombre": "Cliente 1",
+   "tel": "",
+   "notas": ""
+  },
+  "c2": {
+   "nombre": "Cliente 2",
+   "tel": "",
+   "notas": ""
+  },
+  "c3": {
+   "nombre": "Cliente 3",
+   "tel": "",
+   "notas": ""
+  },
+  "c4": {
+   "nombre": "Cliente 4",
+   "tel": "",
+   "notas": ""
+  },
+  "c5": {
+   "nombre": "Cliente 5",
+   "tel": "",
+   "notas": ""
+  },
+  "c6": {
+   "nombre": "Cliente 6",
+   "tel": "",
+   "notas": ""
+  },
+  "c7": {
+   "nombre": "Cliente 7",
+   "tel": "",
+   "notas": ""
+  },
+  "c8": {
+   "nombre": "Cliente 8",
+   "tel": "",
+   "notas": ""
+  },
+  "c9": {
+   "nombre": "Cliente 9",
+   "tel": "",
+   "notas": ""
+  },
+  "c10": {
+   "nombre": "Cliente 10",
+   "tel": "",
+   "notas": ""
+  },
+  "c11": {
+   "nombre": "Cliente 11",
+   "tel": "",
+   "notas": ""
+  },
+  "c12": {
+   "nombre": "Cliente 12",
+   "tel": "",
+   "notas": ""
+  },
+  "c13": {
+   "nombre": "Cliente 13",
+   "tel": "",
+   "notas": ""
+  },
+  "c14": {
+   "nombre": "Cliente 14",
+   "tel": "",
+   "notas": ""
+  },
+  "c15": {
+   "nombre": "Cliente 15",
+   "tel": "",
+   "notas": ""
+  },
+  "c16": {
+   "nombre": "Cliente 16",
+   "tel": "",
+   "notas": ""
+  }
+ },
+ "pedidos": {
+  "p01": {
+   "clienteId": "c1",
+   "fecha": "2026-09-15",
+   "entrega": "2026-09-15",
+   "entregado": true,
+   "entregadoEn": "2026-09-15",
+   "notas": "",
+   "items": [
+    {
+     "s": "s1",
+     "q": 1,
+     "p": 10000,
+     "r": "r1"
+    }
+   ],
+   "pagos": [
+    {
+     "m": "Efectivo",
+     "v": 10000,
+     "f": "2026-09-15"
+    }
+   ]
+  },
+  "p02": {
+   "clienteId": "c2",
+   "fecha": "2026-09-15",
+   "entrega": "2026-09-15",
+   "entregado": true,
+   "entregadoEn": "2026-09-15",
+   "notas": "",
+   "items": [
+    {
+     "s": "s1",
+     "q": 1,
+     "p": 10000,
+     "r": "r1"
+    },
+    {
+     "s": "s2",
+     "q": 1,
+     "p": 10000,
+     "r": "r1"
+    },
+    {
+     "s": "s4",
+     "q": 1,
+     "p": 10000,
+     "r": "r2"
+    }
+   ],
+   "pagos": [
+    {
+     "m": "Efectivo",
+     "v": 20000,
+     "f": "2026-09-15"
+    },
+    {
+     "m": "Transferencia",
+     "v": 10000,
+     "f": "2026-09-15"
+    }
+   ]
+  },
+  "p03": {
+   "clienteId": "c3",
+   "fecha": "2026-09-15",
+   "entrega": "2026-09-16",
+   "entregado": true,
+   "entregadoEn": "2026-09-16",
+   "notas": "",
+   "items": [
+    {
+     "s": "s2",
+     "q": 1,
+     "p": 10000,
+     "r": "r1"
+    },
+    {
+     "s": "s3",
+     "q": 1,
+     "p": 10000,
+     "r": "r1"
+    }
+   ],
+   "pagos": [
+    {
+     "m": "Transferencia",
+     "v": 20000,
+     "f": "2026-09-16"
+    }
+   ]
+  },
+  "p04": {
+   "clienteId": "c4",
+   "fecha": "2026-09-16",
+   "entrega": "2026-09-16",
+   "entregado": true,
+   "entregadoEn": "2026-09-16",
+   "notas": "",
+   "items": [
+    {
+     "s": "s3",
+     "q": 1,
+     "p": 10000,
+     "r": "r1"
+    },
+    {
+     "s": "s4",
+     "q": 1,
+     "p": 10000,
+     "r": "r2"
+    }
+   ],
+   "pagos": [
+    {
+     "m": "Nequi",
+     "v": 15000,
+     "f": "2026-09-16"
+    }
+   ]
+  },
+  "p05": {
+   "clienteId": "c5",
+   "fecha": "2026-09-16",
+   "entrega": "2026-09-15",
+   "entregado": true,
+   "entregadoEn": "2026-09-15",
+   "notas": "",
+   "items": [
+    {
+     "s": "s1",
+     "q": 1,
+     "p": 10000,
+     "r": "r1"
+    },
+    {
+     "s": "s2",
+     "q": 1,
+     "p": 10000,
+     "r": "r1"
+    },
+    {
+     "s": "s3",
+     "q": 1,
+     "p": 10000,
+     "r": "r1"
+    },
+    {
+     "s": "s4",
+     "q": 1,
+     "p": 10000,
+     "r": "r2"
+    }
+   ],
+   "pagos": [
+    {
+     "m": "Transferencia",
+     "v": 40000,
+     "f": "2026-09-15"
+    }
+   ]
+  },
+  "p06": {
+   "clienteId": "c6",
+   "fecha": "2026-09-17",
+   "entrega": "2026-09-17",
+   "entregado": true,
+   "entregadoEn": "2026-09-17",
+   "notas": "",
+   "items": [
+    {
+     "s": "s3",
+     "q": 2,
+     "p": 10000,
+     "r": "r1"
+    }
+   ],
+   "pagos": [
+    {
+     "m": "Transferencia",
+     "v": 20000,
+     "f": "2026-09-17"
+    }
+   ]
+  },
+  "p07": {
+   "clienteId": "c6",
+   "fecha": "2026-09-16",
+   "entrega": "2026-09-17",
+   "entregado": true,
+   "entregadoEn": "2026-09-17",
+   "notas": "",
+   "items": [
+    {
+     "s": "s1",
+     "q": 1,
+     "p": 10000,
+     "r": "r1"
+    }
+   ],
+   "pagos": [
+    {
+     "m": "Efectivo",
+     "v": 10000,
+     "f": "2026-09-17"
+    }
+   ]
+  },
+  "p08": {
+   "clienteId": "c7",
+   "fecha": "2026-09-16",
+   "entrega": "2026-09-17",
+   "entregado": true,
+   "entregadoEn": "2026-09-17",
+   "notas": "",
+   "items": [
+    {
+     "s": "s4",
+     "q": 2,
+     "p": 10000,
+     "r": "r2"
+    }
+   ],
+   "pagos": [
+    {
+     "m": "Efectivo",
+     "v": 10000,
+     "f": "2026-09-17"
+    }
+   ]
+  },
+  "p09": {
+   "clienteId": "c6",
+   "fecha": "2026-09-15",
+   "entrega": "2026-09-16",
+   "entregado": true,
+   "entregadoEn": "2026-09-16",
+   "notas": "",
+   "items": [
+    {
+     "s": "s4",
+     "q": 3,
+     "p": 10000,
+     "r": "r2"
+    },
+    {
+     "s": "s1",
+     "q": 1,
+     "p": 10000,
+     "r": "r1"
+    }
+   ],
+   "pagos": [
+    {
+     "m": "Transferencia",
+     "v": 40000,
+     "f": "2026-09-16"
+    }
+   ]
+  },
+  "p10": {
+   "clienteId": "c8",
+   "fecha": "2026-09-15",
+   "entrega": "2026-09-17",
+   "entregado": true,
+   "entregadoEn": "2026-09-17",
+   "notas": "",
+   "items": [
+    {
+     "s": "s3",
+     "q": 2,
+     "p": 10000,
+     "r": "r1"
+    }
+   ],
+   "pagos": [
+    {
+     "m": "Transferencia",
+     "v": 20000,
+     "f": "2026-09-17"
+    }
+   ]
+  },
+  "p11": {
+   "clienteId": "c9",
+   "fecha": "2026-09-15",
+   "entrega": "2026-09-18",
+   "entregado": true,
+   "entregadoEn": "2026-09-18",
+   "notas": "",
+   "items": [
+    {
+     "s": "s1",
+     "q": 2,
+     "p": 10000,
+     "r": "r1"
+    }
+   ],
+   "pagos": [
+    {
+     "m": "Efectivo",
+     "v": 20000,
+     "f": "2026-09-18"
+    }
+   ]
+  },
+  "p12": {
+   "clienteId": "c10",
+   "fecha": "2026-09-16",
+   "entrega": "2026-09-18",
+   "entregado": true,
+   "entregadoEn": "2026-09-18",
+   "notas": "",
+   "items": [
+    {
+     "s": "s3",
+     "q": 1,
+     "p": 10000,
+     "r": "r1"
+    }
+   ],
+   "pagos": [
+    {
+     "m": "Efectivo",
+     "v": 10000,
+     "f": "2026-09-18"
+    }
+   ]
+  },
+  "p13": {
+   "clienteId": "c11",
+   "fecha": "2026-09-17",
+   "entrega": "2026-09-18",
+   "entregado": true,
+   "entregadoEn": "2026-09-18",
+   "notas": "",
+   "items": [
+    {
+     "s": "s2",
+     "q": 2,
+     "p": 10000,
+     "r": "r1"
+    }
+   ],
+   "pagos": [
+    {
+     "m": "Efectivo",
+     "v": 20000,
+     "f": "2026-09-18"
+    }
+   ]
+  },
+  "p14": {
+   "clienteId": "c12",
+   "fecha": "2026-09-18",
+   "entrega": "2026-09-18",
+   "entregado": true,
+   "entregadoEn": "2026-09-18",
+   "notas": "",
+   "items": [
+    {
+     "s": "s4",
+     "q": 1,
+     "p": 10000,
+     "r": "r2"
+    }
+   ],
+   "pagos": [
+    {
+     "m": "Efectivo",
+     "v": 5000,
+     "f": "2026-09-18"
+    }
+   ]
+  },
+  "p15": {
+   "clienteId": "c13",
+   "fecha": "2026-09-14",
+   "entrega": "2026-09-15",
+   "entregado": true,
+   "entregadoEn": "2026-09-15",
+   "notas": "",
+   "items": [
+    {
+     "s": "s1",
+     "q": 1,
+     "p": 10000,
+     "r": "r1"
+    },
+    {
+     "s": "s2",
+     "q": 1,
+     "p": 10000,
+     "r": "r1"
+    }
+   ],
+   "pagos": [
+    {
+     "m": "Efectivo",
+     "v": 20000,
+     "f": "2026-09-15"
+    }
+   ]
+  },
+  "p16": {
+   "clienteId": "c14",
+   "fecha": "2026-09-15",
+   "entrega": "2026-09-15",
+   "entregado": true,
+   "entregadoEn": "2026-09-15",
+   "notas": "",
+   "items": [
+    {
+     "s": "s3",
+     "q": 1,
+     "p": 10000,
+     "r": "r1"
+    }
+   ],
+   "pagos": [
+    {
+     "m": "Efectivo",
+     "v": 10000,
+     "f": "2026-09-15"
+    }
+   ]
+  },
+  "p17": {
+   "clienteId": "c15",
+   "fecha": "2026-09-16",
+   "entrega": "2026-09-16",
+   "entregado": true,
+   "entregadoEn": "2026-09-16",
+   "notas": "",
+   "items": [
+    {
+     "s": "s4",
+     "q": 1,
+     "p": 10000,
+     "r": "r2"
+    }
+   ],
+   "pagos": [
+    {
+     "m": "Efectivo",
+     "v": 10000,
+     "f": "2026-09-16"
+    }
+   ]
+  },
+  "p18": {
+   "clienteId": "c16",
+   "fecha": "2026-09-16",
+   "entrega": "2026-09-15",
+   "entregado": true,
+   "entregadoEn": "2026-09-15",
+   "notas": "",
+   "items": [
+    {
+     "s": "s1",
+     "q": 1,
+     "p": 10000,
+     "r": "r1"
+    }
+   ],
+   "pagos": []
+  },
+  "p19": {
+   "clienteId": "c16",
+   "fecha": "2026-09-17",
+   "entrega": "2026-09-15",
+   "entregado": true,
+   "entregadoEn": "2026-09-15",
+   "notas": "",
+   "items": [
+    {
+     "s": "s1",
+     "q": 1,
+     "p": 10000,
+     "r": "r1"
+    }
+   ],
+   "pagos": []
+  }
+ },
+ "sello": "2026-09-18.excel-34"
+}

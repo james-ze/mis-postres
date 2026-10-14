@@ -1,0 +1,131 @@
+{
+ "totales": {
+  "ventas": 350000,
+  "cobrado": 310000,
+  "porCobrar": 40000,
+  "gananciaEst": 276550,
+  "gastos": 191300,
+  "pedidos": 19,
+  "pendEntrega": 0,
+  "unidades": 35,
+  "gananciaReal": 158700
+ },
+ "saldos": {
+  "c4": {
+   "saldo": 5000,
+   "n": 1
+  },
+  "c7": {
+   "saldo": 10000,
+   "n": 1
+  },
+  "c12": {
+   "saldo": 5000,
+   "n": 1
+  },
+  "c16": {
+   "saldo": 20000,
+   "n": 2
+  }
+ },
+ "sabores": {
+  "s1": {
+   "u": 10,
+   "v": 100000,
+   "g": 78850
+  },
+  "s2": {
+   "u": 6,
+   "v": 60000,
+   "g": 49200
+  },
+  "s3": {
+   "u": 9,
+   "v": 90000,
+   "g": 58500
+  },
+  "s4": {
+   "u": 10,
+   "v": 100000,
+   "g": 90000
+  }
+ },
+ "r1": {
+  "prod": 30,
+  "vend": 25,
+  "merma": 0,
+  "disp": 5,
+  "invertido": 74150,
+  "costoVendido": 63450,
+  "costoStock": 10700,
+  "perdidoMerma": 0,
+  "ingresos": 250000,
+  "cobrado": 227500,
+  "porCobrar": 22500,
+  "porSabor": {
+   "s1": {
+    "prod": 10,
+    "vend": 10,
+    "merma": 0,
+    "disp": 0,
+    "cu": 2115,
+    "ing": 100000,
+    "gan": 78850
+   },
+   "s2": {
+    "prod": 10,
+    "vend": 6,
+    "merma": 0,
+    "disp": 4,
+    "cu": 1800,
+    "ing": 60000,
+    "gan": 49200
+   },
+   "s3": {
+    "prod": 10,
+    "vend": 9,
+    "merma": 0,
+    "disp": 1,
+    "cu": 3500,
+    "ing": 90000,
+    "gan": 58500
+   }
+  },
+  "ganancia": 186550,
+  "resultado": 175850,
+  "faltaRecuperar": 0,
+  "pctRecuperado": 100,
+  "valorStock": 50000,
+  "gananciaPotencial": 225850
+ },
+ "r2": {
+  "prod": 10,
+  "vend": 10,
+  "merma": 0,
+  "disp": 0,
+  "invertido": 10000,
+  "costoVendido": 10000,
+  "costoStock": 0,
+  "perdidoMerma": 0,
+  "ingresos": 100000,
+  "cobrado": 82500,
+  "porCobrar": 17500,
+  "porSabor": {
+   "s4": {
+    "prod": 10,
+    "vend": 10,
+    "merma": 0,
+    "disp": 0,
+    "cu": 1000,
+    "ing": 100000,
+    "gan": 90000
+   }
+  },
+  "ganancia": 90000,
+  "resultado": 90000,
+  "faltaRecuperar": 0,
+  "pctRecuperado": 100,
+  "valorStock": 0,
+  "gananciaPotencial": 90000
+ }
+}
