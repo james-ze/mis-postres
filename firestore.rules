@@ -1,16 +1,20 @@
 rules_version = '2';
 // Quién puede entrar y qué se puede hacer con los datos.
 //
-// Quién entra: las cuentas de Google que tengan un documento en la colección "acceso"
-// cuyo ID sea su correo en minúsculas (por ejemplo acceso/maira@gmail.com). Se agregan
-// a mano en la consola de Firebase; desde la app nadie puede leer ni cambiar esa lista.
-// Así este archivo no lleva correos y se puede pegar tal cual.
+// Quién entra: las cuentas de Google cuyo correo (en minúsculas) esté en la lista de
+// correosPermitidos(), o que tengan un documento en la colección "acceso" con su correo
+// en minúsculas como ID. Este repositorio es público, así que aquí la lista va vacía: en la
+// consola de Firebase se pegan estas mismas reglas con los correos reales en la lista.
 service cloud.firestore {
   match /databases/{database}/documents {
+    function correosPermitidos() {
+      return [];
+    }
     function permitido() {
       return request.auth != null
         && request.auth.token.email_verified == true
-        && exists(/databases/$(database)/documents/acceso/$(request.auth.token.email.lower()));
+        && (request.auth.token.email.lower() in correosPermitidos()
+          || exists(/databases/$(database)/documents/acceso/$(request.auth.token.email.lower())));
     }
     function coleccionValida(c) {
       return c in ['catalogo', 'clientes', 'rondas', 'pedidos', 'gastos', 'config'];

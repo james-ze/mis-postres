@@ -1322,9 +1322,8 @@ function boot(){
     },
     onDatos:function(d,pap,info){
       aplicarDatos(d,pap);
-      var vacio=['catalogo','clientes','rondas','pedidos','gastos'].every(function(c){return !Object.keys(S[c]).length;});
-      if(info&&!info.confiable&&vacio){
-        // Celular nuevo sin señal: no mostramos un negocio vacío como si fuera el real.
+      if(info&&!info.confiable){
+        // Celular nuevo: hasta que no baje todo de la nube no mostramos un negocio vacío o a medias como si fuera el real.
         dbReady=false;
         pantalla('<div class="spin"></div><div>Bajando tus datos de la nube…</div>'+
           '<div class="muted" style="max-width:300px">La primera vez en este celular se necesita internet. Si no hay señal, conéctate y espera un momento.</div>');

@@ -25,11 +25,9 @@ Todo es gratis: el plan gratuito de Firebase (Spark) no se vence ni se pausa por
 3. Menú **Compilación › Authentication › Comenzar**. En *Método de acceso* activa **Google** y guarda.
 4. En **Authentication › Configuración › Dominios autorizados** agrega `james-ze.github.io`.
 5. Menú **Compilación › Firestore Database › Crear base de datos**. Edición estándar, ubicación `southamerica-east1 (São Paulo)`, **modo de producción**.
-6. En la pestaña **Reglas** de Firestore borra todo, pega el contenido de [`firestore.rules`](firestore.rules) tal cual y toca **Publicar**.
-7. En la pestaña **Datos** de Firestore, toca **Iniciar colección**. ID de la colección: `acceso`. ID del documento: el Gmail de Maira **en minúsculas** (por ejemplo `maira@gmail.com`). Agrega un campo `nombre` (tipo string) con el valor `Maira` y guarda.
-8. Dentro de `acceso`, toca **Agregar documento** y haz lo mismo con tu correo.
+6. En la pestaña **Reglas** de Firestore borra todo y pega el contenido de [`firestore.rules`](firestore.rules), pero con los correos que pueden entrar dentro de `correosPermitidos()`, en minúsculas. Por ejemplo `return ['maira@gmail.com', 'tu-correo@gmail.com'];`. Toca **Publicar**. (Claude te las puede dar ya armadas.)
 
-Solo los correos que estén en `acceso` pueden entrar. Para dar acceso a otra persona más adelante, agrega otro documento ahí. Para quitárselo, borra su documento.
+Solo esos correos pueden entrar. Para dar o quitar acceso más adelante, cambia la lista y vuelve a publicar. Los correos no se escriben en este repositorio porque es público.
 
 ### 2. GitHub Pages (la página)
 
